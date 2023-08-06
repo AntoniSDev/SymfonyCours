@@ -5,60 +5,62 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-class HomeController extends AbstractController{
 
-  public function bonjour()
-  {
-    return new Response ('Bonjour à tous');
-  }
+class HomeController extends AbstractController  {
 
-  public function aurevoir()
-  {
-    return $this->redirectToRoute('accueil');
-  }
+    public function bonjour()
+    {
 
-  public function redirectToPc()
-  {
-    return $this->redirect('https://www.pcgamer.com/');
-  }
+        return new Response("bonjour à toutes et à tous");
+    }
 
-  public function showtemplate()
-  {
-    return $this->render('base.html.twig',[]);
-  }
+    public function aurevoir()
+    {
 
-  /**
-   * @Route("/products", name="products_list")
-   */
-  public function showproducts(Request $request)
-  {
-    $products = ['ordinateur','telephone','radio','cassette'];
+       return $this->redirectToRoute('accueil');
+    }
 
-    return $this->render('product.html.twig', ['products' => $products]);
-  }
 
-  #[Route('/customers', name:'customers_list')]
-  public function showCustomers()
-  {
-    
-    $customers =['jean','claude','john','charles'];
+    public function redirectToLinkedIn()
+    {
+        return $this->redirect('https://www.linkedin.com');
+    }
 
-      return $this->render('customer.html.twig',['customers' => $customers]);
-  }
+    public function showtemplate()
+    {
 
-  #[Route('/category/{id}', name:"category")]
-  public function getCategorie(int $id)
-  {
-    $category_id = $id;
+       return  $this->render('base.html.twig', []);
+    }
 
-    return $this->render('category.html.twig', ['id_category' => $category_id]);
-  }
+    /**
+     *@Route("/products", name="products_list")
+     */
+    public function showproducts(Request $request)
+    {
+        
+       $parametres =  $request->query->all();
 
-  #[Route('/pages', name: "pages")]
-  public function getPages()
-  {
-    return $this->render('page.html.twig', []);
-  }
+       dump($parametres);
+
+        $products = ['ordinateur','telephone','radio','cassette'];
+
+        return $this->render('product.html.twig', ['products' => $products]);
+    }
+
+    #[Route('/customers', name:'customers_list')]   
+    public function showCustomers()
+    {
+
+     $customers =['laurent','yves','alain', 'gérard'];
+
+       return $this->render('customer.html.twig',['customers' => $customers]);
+    }
+
+
+
+
+
+
 
 
 }
